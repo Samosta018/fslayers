@@ -36,3 +36,16 @@ def login_view(request):
 def custom_logout(request):
     logout(request)
     return redirect('home') 
+
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
+@login_required
+def profile_view(request):
+    user = request.user
+    context = {
+        'user': user,
+        'page_title': 'Личный кабинет'
+    }
+    return render(request, 'pages/profile.html', context)
