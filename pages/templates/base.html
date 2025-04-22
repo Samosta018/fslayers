@@ -20,17 +20,24 @@
                 
                 <nav class="header__nav">
                     <ul class="nav__list">
-                        <li class="nav__item"><a class="nav__link" href="/">Сообщения</a></li>
-                        <li class="nav__item"><a class="nav__link" href="/">Вход</a></li>
-                        <li class="nav__item"><a class="nav__link" href="/">Личный кабинет</a></li>
-                        <li class="nav__item"><a class="nav__link" href="/">Регистрация</a></li>
-                        <li class="nav__item"><a class="nav__link" href="/">Выход</a></li>
+                        {% if user.is_authenticated %} 
+                            <li class="nav__item"><a class="nav__link" href="/">Сообщения</a></li>
+                            <li class="nav__item"><a class="nav__link" href="">Личный кабинет</a></li>
+                            <li class="nav__item">
+                                <form action="{% url 'logout' %}" method="post" class="nav__form">
+                                    {% csrf_token %}
+                                    <button type="submit" class="nav__logout">Выйти</button>
+                                </form>
+                            </li>
+                        {% else %}
+                            <li class="nav__item"><a class="nav__link" href="{% url 'login' %}">Вход</a></li>
+                            <li class="nav__item"><a class="nav__link" href="{% url 'signup' %}">Регистрация</a></li>
+                        {% endif %}
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
-    
     <main class="main">
         {% block content %}
         {% endblock %}
