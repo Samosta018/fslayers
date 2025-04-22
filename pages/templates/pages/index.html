@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}FSLAYERS | Главная{% endblock %}
+
+{% block content %}
+    <h1>Добро пожаловать!</h1>
+    <p>Это содержимое главной страницы</p>
+    
+    {# Можно добавлять дополнительные блоки #}
+    {% block additional_content %}
+        <p>Дополнительный контент только для этой страницы</p>
+    {% endblock %}
+{% endblock %}
