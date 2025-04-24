@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/filters.js"></script>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="header__container">
+            <a href="/" class="header__link">fslayers</a>
+            <nav class="header__menu">
+                <ul class="header__menu-list">
+                    <li class="header__menu-item">
+                        <a href="/" class="header__menu-link">Сообщения</a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="/" class="header__menu-link">Заказать услугу</a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="/" class="header__menu-link">Личный кабинет</a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="/" class="header__menu-link">Выход</a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="/" class="header__menu-link">Регистрация</a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="/" class="header__menu-link">Вход</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- Основная часть -->
+    <main class="main">
+        <div class="main__container">
+            <section class="order-section">
+                <h1 class="order-section__title">Создать новый заказ</h1>
+                <form class="order-form" action="#" method="POST">
+                    <div class="order-form__group">
+                        <label for="order-title" class="order-form__label">Название услуги</label>
+                        <input type="text" id="order-title" name="order-title" class="order-form__input" required>
+                    </div>
+            
+                    <div class="order-form__group">
+                        <label for="order-description" class="order-form__label">Описание заказа</label>
+                        <textarea id="order-description" name="order-description" class="order-form__textarea" required rows="6"></textarea>
+                    </div>
+            
+                    <div class="order-form__row">
+                        <div class="order-form__group">
+                            <label for="order-category" class="order-form__label">Категория</label>
+                            <select id="order-category" name="order-category" class="order-form__select" required>
+                                <option value="" disabled selected>Выберите категорию</option>
+                                <option value="programming">Программирование</option>
+                                <option value="design">Дизайн</option>
+                                <option value="copywriting">Копирайтинг</option>
+                            </select>
+                        </div>
+            
+                        <div class="order-form__group">
+                            <label for="order-days" class="order-form__label">Срок выполнения (дней)</label>
+                            <input type="number" id="order-days" name="order-days" class="order-form__input" min="1" max="365" required>
+                        </div>
+                    </div>
+            
+                    <div class="order-form__group">
+                        <label class="order-form__label">Бюджет</label>
+                        <div class="order-form__budget">
+                            <input type="number" id="order-budget" name="order-budget" class="order-form__input" min="0" step="100" required placeholder="0">
+                            <span class="order-form__currency">₽</span>
+                        </div>
+                        <div class="order-form__negotiable">
+                            <input type="checkbox" id="negotiable" name="negotiable">
+                            <label for="negotiable" class="order-form__negotiable-label">Бюджет обсуждается</label>
+                        </div>
+                    </div>
+            
+                    <div class="order-form__actions">
+                        <button type="submit" class="order-form__submit">Разместить заказ</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__top">
+                <div class="footer__section">
+                    <h3 class="footer__title">FSLAYERS</h3>
+                    <p class="footer__text">Платформа для поиска исполнителей<br>и заказа услуг</p>
+                </div>
+                
+                <div class="footer__section">
+                    <h4 class="footer__subtitle">Навигация</h4>
+                    <ul class="footer__list">
+                        <li><a href="/" class="footer__link">Сообщения</a></li>
+                        <li><a href="/" class="footer__link">Заказать услугу</a></li>
+                        <li><a href="/" class="footer__link">Личный кабинет</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__section">
+                    <h4 class="footer__subtitle">Контакты</h4>
+                    <ul class="footer__list">
+                        <li class="footer__contact-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z"/>
+                                <path d="M15 10C15 11.6569 13.6569 13 12 13C10.3431 13 9 11.6569 9 10C9 8.34315 10.3431 7 12 7C13.6569 7 15 8.34315 15 10Z"/>
+                            </svg>
+                            г. Ханты-Мансийск общага №4
+                        </li>
+                        <li class="footer__contact-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M22 16.92V19C22 19.5304 21.7893 20.0391 21.4142 20.4142C21.0391 20.7893 20.5304 21 20 21H4C3.46957 21 2.96086 20.7893 2.58579 20.4142C2.21071 20.0391 2 19.5304 2 19V16.92M16 8L12 12M12 12L8 8M12 12V21M22 16.92L17.65 12.571C16.8347 11.7564 15.7469 11.283 14.618 11.242L12.079 11.12C11.4441 11.0945 10.8221 10.9112 10.2725 10.5867C9.72294 10.2621 9.26309 9.80691 8.937 9.263L8 8L12 12L16 8L22 16.92Z"/>
+                            </svg>
+                            example@fslayers.ru
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer__section">
+                    <h4 class="footer__subtitle">Соцсети</h4>
+                    <div class="footer__social">
+                        <a href="#" class="footer__social-link">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="footer__social-link">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 0C8.74 0 8.333 0.014 7.053 0.072C5.775 0.131 4.902 0.333 4.14 0.63C3.347 0.939 2.698 1.35 2.052 2.052C1.35 2.698 0.939 3.347 0.63 4.14C0.333 4.902 0.131 5.775 0.072 7.053C0.014 8.333 0 8.74 0 12C0 15.26 0.014 15.667 0.072 16.947C0.131 18.225 0.333 19.098 0.63 19.86C0.939 20.653 1.35 21.302 2.052 21.948C2.698 22.65 3.347 23.061 4.14 23.37C4.902 23.667 5.775 23.869 7.053 23.928C8.333 23.986 8.74 24 12 24C15.26 24 15.667 23.986 16.947 23.928C18.225 23.869 19.098 23.667 19.86 23.37C20.653 23.061 21.302 22.65 21.948 21.948C22.65 21.302 23.061 20.653 23.37 19.86C23.667 19.098 23.869 18.225 23.928 16.947C23.986 15.667 24 15.26 24 12C24 8.74 23.986 8.333 23.928 7.053C23.869 5.775 23.667 4.902 23.37 4.14C23.061 3.347 22.65 2.698 21.948 2.052C21.302 1.35 20.653 0.939 19.86 0.63C19.098 0.333 18.225 0.131 16.947 0.072C15.667 0.014 15.26 0 12 0ZM12 2.16C15.203 2.16 15.584 2.173 16.85 2.23C18.021 2.283 18.655 2.477 19.076 2.64C19.646 2.863 20.042 3.129 20.466 3.534C20.871 3.958 21.137 4.354 21.36 4.924C21.523 5.345 21.717 5.979 21.77 7.15C21.827 8.416 21.84 8.797 21.84 12C21.84 15.203 21.827 15.584 21.77 16.85C21.717 18.021 21.523 18.655 21.36 19.076C21.137 19.646 20.871 20.042 20.466 20.466C20.042 20.871 19.646 21.137 19.076 21.36C18.655 21.523 18.021 21.717 16.85 21.77C15.584 21.827 15.203 21.84 12 21.84C8.797 21.84 8.416 21.827 7.15 21.77C5.979 21.717 5.345 21.523 4.924 21.36C4.354 21.137 3.958 20.871 3.534 20.466C3.129 20.042 2.863 19.646 2.64 19.076C2.477 18.655 2.283 18.021 2.23 16.85C2.173 15.584 2.16 15.203 2.16 12C2.16 8.797 2.173 8.416 2.23 7.15C2.283 5.979 2.477 5.345 2.64 4.924C2.863 4.354 3.129 3.958 3.534 3.534C3.958 3.129 4.354 2.863 4.924 2.64C5.345 2.477 5.979 2.283 7.15 2.23C8.416 2.173 8.797 2.16 12 2.16ZM12 6C8.686 6 6 8.686 6 12C6 15.314 8.686 18 12 18C15.314 18 18 15.314 18 12C18 8.686 15.314 6 12 6ZM12 15.6C9.907 15.6 8.4 14.093 8.4 12C8.4 9.907 9.907 8.4 12 8.4C14.093 8.4 15.6 9.907 15.6 12C15.6 14.093 14.093 15.6 12 15.6ZM18.405 5.4C18.405 6.194 17.759 6.84 16.965 6.84C16.171 6.84 15.525 6.194 15.525 5.4C15.525 4.606 16.171 3.96 16.965 3.96C17.759 3.96 18.405 4.606 18.405 5.4Z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">© 2025 FSLAYERS. Все права защищены</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
