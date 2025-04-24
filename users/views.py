@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from .forms import SignUpForm, LoginForm
+from .forms import SignUpForm, LoginForm, OrderForm
 from django.contrib.auth import logout
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
+import logging
+
+logger = logging.getLogger(__name__)
 
 def signup_view(request):
     if request.method == 'POST':
@@ -37,8 +41,6 @@ def custom_logout(request):
     return redirect('home') 
 
 
-
-
 @login_required
 def profile_view(request):
     user = request.user
@@ -51,4 +53,25 @@ def profile_view(request):
 
 @login_required
 def order_view(request):
-    return render(request, 'pages/order.html')
+    if request.user.role != 'customer':
+        logger.warning(f"Попытка создания заказа не заказчиком: {request.user}")
+        return redirect('home')
+
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            try:
+                order = form.save(commit=False)
+                order.author = request.user
+                order.author_rating = request.user.rating
+                order.save()
+                logger.info(f"Создан новый заказ: {order}")
+                return redirect('home')
+            except Exception as e:
+                logger.error(f"Ошибка при создании заказа: {str(e)}")
+        else:
+            logger.warning(f"Невалидная форма: {form.errors}")
+    else:
+        form = OrderForm()
+
+    return render(request, 'pages/order.html', {'form': form})

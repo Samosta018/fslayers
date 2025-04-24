@@ -650,7 +650,6 @@ body {
     margin: 0;
 }
 
-/* Auth Styles */
 .auth-section {
     max-width: 600px;
     margin: 0 auto;
@@ -796,7 +795,6 @@ body {
     left: 4px;
 }
 
-/* Order Creation Styles */
 .order-section {
     max-width: 800px;
     margin: 0 auto;
