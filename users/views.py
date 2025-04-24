@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .forms import SignUpForm, LoginForm
-
 from django.contrib.auth import logout
 from django.views.decorators.http import require_POST
-from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 
 def signup_view(request):
     if request.method == 'POST':
@@ -38,8 +37,7 @@ def custom_logout(request):
     return redirect('home') 
 
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+
 
 @login_required
 def profile_view(request):
@@ -49,3 +47,8 @@ def profile_view(request):
         'page_title': 'Личный кабинет'
     }
     return render(request, 'pages/profile.html', context)
+
+
+@login_required
+def order_view(request):
+    return render(request, 'pages/order.html')

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}FSLAYERS | Заказ услуги{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="main__container">
+        <section class="order-section">
+            <h1 class="order-section__title">Создать новый заказ</h1>
+            <form class="order-form" action="#" method="POST">
+                <div class="order-form__group">
+                    <label for="order-title" class="order-form__label">Название услуги</label>
+                    <input type="text" id="order-title" name="order-title" class="order-form__input" required>
+                </div>
+        
+                <div class="order-form__group">
+                    <label for="order-description" class="order-form__label">Описание заказа</label>
+                    <textarea id="order-description" name="order-description" class="order-form__textarea" required rows="6"></textarea>
+                </div>
+        
+                <div class="order-form__row">
+                    <div class="order-form__group">
+                        <label for="order-category" class="order-form__label">Категория</label>
+                        <select id="order-category" name="order-category" class="order-form__select" required>
+                            <option value="" disabled selected>Выберите категорию</option>
+                            <option value="programming">Программирование</option>
+                            <option value="design">Дизайн</option>
+                            <option value="copywriting">Копирайтинг</option>
+                        </select>
+                    </div>
+        
+                    <div class="order-form__group">
+                        <label for="order-days" class="order-form__label">Срок выполнения (дней)</label>
+                        <input type="number" id="order-days" name="order-days" class="order-form__input" min="1" max="365" required>
+                    </div>
+                </div>
+        
+                <div class="order-form__group">
+                    <label class="order-form__label">Бюджет</label>
+                    <div class="order-form__budget">
+                        <input type="number" id="order-budget" name="order-budget" class="order-form__input" min="0" step="100" required placeholder="0">
+                        <span class="order-form__currency">₽</span>
+                    </div>
+                    <div class="order-form__negotiable">
+                        <input type="checkbox" id="negotiable" name="negotiable">
+                        <label for="negotiable" class="order-form__negotiable-label">Бюджет обсуждается</label>
+                    </div>
+                </div>
+        
+                <div class="order-form__actions">
+                    <button type="submit" class="order-form__submit">Разместить заказ</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+{% endblock %}

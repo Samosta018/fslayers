@@ -3,25 +3,24 @@
 {% block title %}FSLAYERS | Вход{% endblock %}
 
 {% block content %}
-<div class="auth">
-    <div class="auth__container container">
-        <div class="auth__content">
-            <h1 class="auth__title">Вход в аккаунт</h1>
-            
-            <form class="auth__form" method="post">
+<main class="main">
+    <div class="main__container">
+        <section class="auth-section">
+            <h1 class="auth-section__title">Вход в аккаунт</h1>
+            <form class="auth-form" action="#" method="POST">
                 {% csrf_token %}
-                
+
                 {% if form.non_field_errors %}
-                <div class="auth__errors">
-                    {% for error in form.non_field_errors %}
-                    <p class="auth__error">{{ error }}</p>
-                    {% endfor %}
-                </div>
+                    <div class="auth__errors">
+                        {% for error in form.non_field_errors %}
+                        <p class="auth__error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
                 {% endif %}
-                
-                <div class="auth__field">
-                    <label class="auth__label" for="{{ form.username.id_for_label }}">Имя пользователя</label>
-                    <input class="auth__input" type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" required>
+
+                <div class="auth-form__group">
+                    <label for="{{ form.username.id_for_label }}" class="auth-form__label">Имя пользователя</label>
+                    <input type="text" id="{{ form.username.id_for_label }}" name="{{ form.username.name }}" class="auth-form__input" required>
                     {% if form.username.errors %}
                     <div class="auth__field-errors">
                         {% for error in form.username.errors %}
@@ -30,10 +29,10 @@
                     </div>
                     {% endif %}
                 </div>
-                
-                <div class="auth__field">
-                    <label class="auth__label" for="{{ form.password.id_for_label }}">Пароль</label>
-                    <input class="auth__input" type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}" required>
+
+                <div class="auth-form__group">
+                    <label for="{{ form.password.id_for_label }}" class="auth-form__label">Пароль</label>
+                    <input type="password" id="{{ form.password.id_for_label }}" name="{{ form.password.name }}" class="auth-form__input" required>
                     {% if form.password.errors %}
                     <div class="auth__field-errors">
                         {% for error in form.password.errors %}
@@ -41,15 +40,13 @@
                         {% endfor %}
                     </div>
                     {% endif %}
+                    <a href="#" class="auth-form__forgot">Забыли пароль?</a>
                 </div>
-                
-                <button class="auth__button button button--primary" type="submit">Войти</button>
+
+                <button type="submit" class="auth-form__button">Войти</button>
+                <p class="auth-form__text">Ещё нет аккаунта? <a href="{% url 'signup' %}" class="auth-form__link">Зарегистрируйтесь</a></p>
             </form>
-            
-            <div class="auth__footer">
-                <p class="auth__footer-text">Нет аккаунта? <a class="auth__footer-link" href="{% url 'signup' %}">Зарегистрироваться</a></p>
-            </div>
-        </div>
+        </section>
     </div>
-</div>
+</main>
 {% endblock %}
