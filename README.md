@@ -30,7 +30,7 @@ pip install -r requirements.txt
 ### 4. Запуск БД
 (Требуется добавить в PATH)
 ```bash
-psql -U имя_пользователя -c "CREATE DATABASE fslayers_db;"
+psql -U имя_пользователя -c "CREATE DATABASE fslayers;"
 ```
 
 или
