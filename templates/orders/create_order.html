@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Создать заказ{% endblock %}
+
+{% block content %}
+<div class="main__container">
+    <section class="order-section">
+        <h1 class="order-section__title">Создать новый заказ</h1>
+        <form class="order-form" action="{% url 'create_order' %}" method="POST">
+            {% csrf_token %}
+            
+            <div class="order-form__group">
+                <label for="id_title" class="order-form__label">Название услуги</label>
+                {{ form.title }}
+            </div>
+    
+            <div class="order-form__group">
+                <label for="id_description" class="order-form__label">Описание заказа</label>
+                {{ form.description }}
+            </div>
+    
+            <div class="order-form__row">
+                <div class="order-form__group">
+                    <label for="id_category" class="order-form__label">Категория</label>
+                    {{ form.category }}
+                </div>
+    
+                <div class="order-form__group">
+                    <label for="id_days_to_complete" class="order-form__label">Срок выполнения (дней)</label>
+                    {{ form.days_to_complete }}
+                </div>
+            </div>
+    
+            <div class="order-form__group">
+                <label class="order-form__label">Бюджет</label>
+                <div class="order-form__budget">
+                    {{ form.budget }}
+                    <span class="order-form__currency">₽</span>
+                </div>
+                <div class="order-form__negotiable">
+                    {{ form.is_budget_negotiable }}
+                    <label for="id_is_budget_negotiable" class="order-form__negotiable-label">Бюджет обсуждается</label>
+                </div>
+            </div>
+    
+            <div class="order-form__actions">
+                <button type="submit" class="order-form__submit">Разместить заказ</button>
+            </div>
+        </form>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="main__container">
+    <section class="auth-section">
+        <h1 class="auth-section__title">Вход в аккаунт</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <form class="auth-form" method="POST">
+            {% csrf_token %}
+            <div class="auth-form__group">
+                <label for="email" class="auth-form__label">Email</label>
+                <input type="email" id="email" name="email" class="auth-form__input" required>
+            </div>
+            <div class="auth-form__group">
+                <label for="password" class="auth-form__label">Пароль</label>
+                <input type="password" id="password" name="password" class="auth-form__input" required>
+                <a href="#" class="auth-form__forgot">Забыли пароль?</a>
+            </div>
+            <button type="submit" class="auth-form__button">Войти</button>
+            <p class="auth-form__text">Ещё нет аккаунта? <a href="{% url 'signup' %}" class="auth-form__link">Зарегистрируйтесь</a></p>
+        </form>
+    </section>
+</div>
+{% endblock %}

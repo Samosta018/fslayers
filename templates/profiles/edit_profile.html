@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Редактирование профиля{% endblock %}
+
+{% block content %}
+<section class="profile-edit-section">
+    <div class="profile-edit__container main__container">
+        <h1 class="profile-edit__title">Редактирование профиля</h1>
+        
+        <div class="profile-edit__tabs">
+            <a href="{% url 'profiles:edit_profile' request.user.id %}" 
+               class="profile-edit__tab active">Основная информация</a>
+            <a href="{% url 'profiles:change_password' request.user.id %}" 
+               class="profile-edit__tab">Смена пароля</a>
+        </div>
+        <form method="post" enctype="multipart/form-data" class="profile-edit__form">
+            {% csrf_token %}
+            <div class="profile-edit__form-grid">
+                <div class="profile-edit__form-column">
+                    <h2 class="profile-edit__form-title">Личные данные</h2>
+                    
+                    <div class="profile-edit__form-group">
+                        <label for="{{ user_form.email.id_for_label }}" class="profile-edit__form-label">
+                            Email
+                        </label>
+                        {{ user_form.email }}
+                        {% if user_form.email.errors %}
+                            <div class="profile-edit__form-error">{{ user_form.email.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="profile-edit__form-group">
+                        <label for="{{ user_form.name.id_for_label }}" class="profile-edit__form-label">
+                            Полное имя
+                        </label>
+                        {{ user_form.name }}
+                        {% if user_form.name.errors %}
+                            <div class="profile-edit__form-error">{{ user_form.name.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="profile-edit__form-column">
+                    <h2 class="profile-edit__form-title">Дополнительная информация</h2>
+                    
+                    <div class="profile-edit__form-group">
+                        <label class="profile-edit__form-label">Аватар</label>
+                        <div class="avatar-upload">
+                            {% if profile_form.instance.avatar %}
+                                <img src="{{ profile_form.instance.avatar.url }}" 
+                                     class="avatar-preview" 
+                                     id="avatarPreview">
+                            {% endif %}
+                            {{ profile_form.avatar }}
+                            {% if profile_form.avatar.errors %}
+                                <div class="profile-edit__form-error">{{ profile_form.avatar.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="profile-edit__form-group">
+                        <label for="{{ profile_form.phone.id_for_label }}" class="profile-edit__form-label">
+                            Телефон
+                        </label>
+                        {{ profile_form.phone }}
+                        {% if profile_form.phone.errors %}
+                            <div class="profile-edit__form-error">{{ profile_form.phone.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="profile-edit__form-group">
+                        <label for="{{ profile_form.bio.id_for_label }}" class="profile-edit__form-label">
+                            О себе
+                        </label>
+                        {{ profile_form.bio }}
+                        {% if profile_form.bio.errors %}
+                            <div class="profile-edit__form-error">{{ profile_form.bio.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="profile-edit__form-group">
+                        <label for="{{ profile_form.skills.id_for_label }}" class="profile-edit__form-label">
+                            Навыки
+                        </label>
+                        {{ profile_form.skills }}
+                        <small class="form-text text-muted">
+                            Перечислите ваши навыки через запятую
+                        </small>
+                        {% if profile_form.skills.errors %}
+                            <div class="profile-edit__form-error">{{ profile_form.skills.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="profile-edit__form-actions">
+                <button type="submit" class="profile-edit__form-submit btn-primary">
+                    Сохранить изменения
+                </button>
+                <a href="{% url 'profiles:profile' %}" class="profile-edit__form-cancel btn-secondary">
+                    Отмена
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
+<script>
+    document.getElementById('id_avatar').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('avatarPreview');
+                if (!preview) {
+                    const previewImg = document.createElement('img');
+                    previewImg.id = 'avatarPreview';
+                    previewImg.className = 'avatar-preview';
+                    event.target.parentNode.insertBefore(previewImg, event.target.nextSibling);
+                }
+                document.getElementById('avatarPreview').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('id_skills').addEventListener('focus', function() {
+        if (!this.dataset.exampleShown) {
+            this.placeholder = "Например: Python, Django, HTML/CSS, JavaScript";
+            this.dataset.exampleShown = true;
+        }
+    });
+</script>
+{% endblock %}

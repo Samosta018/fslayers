@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero__container main__container">
+        <div class="hero__content">
+            <h1 class="hero__title">Найдите идеального исполнителя или проект</h1>
+            <p class="hero__text">Наша платформа соединяет талантливых фрилансеров с клиентами, которые ценят качество и профессионализм. Реализуйте свои идеи или находите интересные проекты.</p>
+        </div>
+        <div class="hero__image">
+            <img src="/static/images/noutbuck.jpg" alt="Фриланс платформа" width="600" height="400">
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="features__container main__container">
+        <h2 class="features__title">Почему выбирают нас</h2>
+        <div class="features__grid">
+            <div class="feature-card">
+                <div class="feature-card__icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 14C8 14 9.5 16 12 16C14.5 16 16 14 16 14" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 9H9.01" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M15 9H15.01" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="feature-card__title">Простота</h3>
+                <p class="feature-card__text">Интуитивно понятный интерфейс для быстрого поиска и размещения заказов</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-card__icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 8V12L15 15" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="feature-card__title">Экономия времени</h3>
+                <p class="feature-card__text">Быстрый подбор исполнителей по рейтингу и специализации</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-card__icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 16V16.01" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 12V12.01" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 8V8.01" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="feature-card__title">Прозрачность</h3>
+                <p class="feature-card__text">Четкие условия сотрудничества и система рейтингов</p>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="ai-chat-container">
+    <button id="ai-toggle" class="ai-button">AI</button>
+    <div class="ai-chat-window">
+        <div class="ai-chat-header">
+            <span>AI Помощник</span>
+            <button class="ai-close-btn" id="ai-close">&times;</button>
+        </div>
+        <div class="ai-chat-messages" id="ai-chat-messages">
+            <div class="ai-message ai-message-ai">
+                Привет! Я помогу вам найти идеального исполнителя для вашего проекта. Опишите, что вам нужно. Описание должно быть чётким и подробным!
+            </div>
+        </div>
+        <div class="ai-chat-input">
+            <input type="text" id="ai-message" placeholder="Опишите ваш проект...">
+            <button id="ai-send">Отпр.</button>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById('ai-toggle');
+    const closeBtn = document.getElementById('ai-close');
+    const chatWindow = document.querySelector('.ai-chat-window');
+    const chatMessages = document.getElementById('ai-chat-messages');
+    const messageInput = document.getElementById('ai-message');
+    const sendBtn = document.getElementById('ai-send');
+    
+    toggleBtn.addEventListener('click', function() {
+        chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+    });
+    
+    closeBtn.addEventListener('click', function() {
+        chatWindow.style.display = 'none';
+    });
+    
+    sendBtn.addEventListener('click', sendMessage);
+    messageInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendMessage();
+    });
+    
+    function sendMessage() {
+        const message = messageInput.value.trim();
+        if (!message) return;
+        
+        addMessage('user', message);
+        messageInput.value = '';
+        
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'ai-message ai-message-ai';
+        loadingDiv.textContent = 'Ищу подходящих исполнителей...';
+        chatMessages.appendChild(loadingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        fetch('/ai/find-executor/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: `message=${encodeURIComponent(message)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            chatMessages.removeChild(loadingDiv);
+
+            addMessage('ai', data.response);
+        })
+        .catch(error => {
+            chatMessages.removeChild(loadingDiv);
+            addMessage('ai', 'Произошла ошибка. Пожалуйста, попробуйте позже.');
+        });
+    }
+    
+    function addMessage(sender, text) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `ai-message ai-message-${sender}`;
+        
+        messageDiv.innerHTML = text;
+        
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+});
+</script>
+{% endblock %}
