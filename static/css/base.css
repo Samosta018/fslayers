@@ -1,0 +1,52 @@
+@font-face {
+    font-family: "Comic Relief";
+    src: url(../fonts/ComicRelief-Regular.woff2);
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url(../fonts/Inter_18pt-Regular.woff2);
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --black: #000000;
+    --red: #FF0000;
+    --light-red: rgba(255, 0, 0, 0.1);
+    --gray: #D9D9D9;
+    --light-gray: #F5F5F5;
+    --dark-gray: #A0A0A0;
+    --white: #FFFFFF;
+
+    --main-font-size: 64px;
+    --head-font-size: 32px;
+    --text-font-size: 18px;
+    --small-font-size: 16px;
+
+    --container-padding: 120px;
+    --elements-gap: 20px;
+    --section-gap: 30px;
+}
+
+body {
+    color: var(--black);
+    font-size: var(--text-font-size);
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.main {
+    min-height: 50vh;
+}
+
+.main__container {
+    padding-inline: var(--container-padding);
+}

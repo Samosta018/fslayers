@@ -1,0 +1,160 @@
+@media (max-width: 768px) {
+    .header__container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .header__menu-list {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .hero__container {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    .hero__content {
+        order: 2;
+        text-align: center;
+    }
+    
+    .hero__image {
+        order: 1;
+    }
+    
+    .hero__button {
+        margin: 0 auto;
+    }
+    
+    .features__grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile__header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .profile__meta {
+        align-items: center;
+    }
+    
+    .profile-edit__form-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .profile-edit__form-actions,
+    .password-change__form-actions {
+        flex-direction: column;
+    }
+    
+    .profile-edit__form-submit,
+    .profile-edit__form-cancel,
+    .password-change__form-submit,
+    .password-change__form-cancel {
+        width: 100%;
+    }
+    
+    .order-form {
+        padding: 30px 20px;
+    }
+    
+    .order-form__row {
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    .order-form__budget {
+        width: 100%;
+    }
+    
+    .order-form__actions {
+        flex-direction: column;
+    }
+    
+    .order-form__submit,
+    .order-form__cancel {
+        width: 100%;
+    }
+    
+    .auth-form {
+        padding: 30px 20px;
+    }
+    
+    .auth-form__radio-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .footer__top {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .footer__title {
+        font-size: 28px;
+    }
+    
+    .footer__subtitle {
+        font-size: 18px;
+    }
+    
+    .order-card__header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .order-card__meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .order-card__name {
+        font-size: 20px;
+    }
+    
+    .order-card__button {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    :root {
+        --container-padding: 20px;
+        --head-font-size: 24px;
+    }
+    
+    .header {
+        height: auto;
+        padding: 15px 0;
+    }
+    
+    .filters__date-range {
+        flex-direction: column;
+    }
+    
+    .filters__price-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filters__checkboxes {
+        flex-direction: column;
+    }
+    
+    .filters__price-input {
+        width: 100%;
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+.text-red {
+    color: var(--red);
+}
