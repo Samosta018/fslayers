@@ -50,3 +50,13 @@ body {
 .main__container {
     padding-inline: var(--container-padding);
 }
+
+.red-link {
+    color: red;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.red-link:hover {
+    color: rgb(221, 74, 74);
+}

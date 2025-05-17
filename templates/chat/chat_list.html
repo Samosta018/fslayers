@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Сообщения{% endblock %}
+
+{% block content %}
+<div class="chat-container">
+    <div class="chat-list">
+        <div class="chat-list-header">
+            <h2>Сообщения</h2>
+        </div>
+        <div class="chat-search">
+            <input type="text" class="search-input" placeholder="Поиск чатов...">
+        </div>
+        <div class="chats-container" id="chats-container">
+            <!-- AJAX -->
+        </div>
+    </div>
+    
+    <div class="chat-empty">
+        <div class="chat-empty-icon">💬</div>
+        <h3>Выберите чат</h3>
+        <p>Выберите существующий чат или начните новый разговор</p>
+    </div>
+</div>
+
+<script src="{% static 'js/chat_list.js' %}"></script>
+{% endblock %}

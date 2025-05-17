@@ -5,8 +5,10 @@
 <head>
     <title>{% block title %}Мой сайт{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body data-user-id="{{ request.user.id }}">
     <header class="header">
         <div class="header__container">
             <a href="/" class="header__link">fslayers</a>
@@ -16,8 +18,15 @@
                         <a href="{% url 'orders' %}" class="header__menu-link">Список заказов</a>
                     </li>
                     {% if user.is_authenticated %}
+                    <li class="header__menu-item">
+                            <a href="{% url 'assistant' %}" class="header__menu-link">
+                                 AI-ассистент
+                            </a>
+                        </li>
                         <li class="header__menu-item">
-                            <a href="" class="header__menu-link">Сообщения</a>
+                            <a href="{% url 'chat:chat_list' %}" class="header__menu-link">
+                                Сообщения <span id="messages-counter"></span>
+                            </a>
                         </li>
                         {% if user.is_customer %}
                             <li class="header__menu-item">
@@ -112,5 +121,19 @@
             </div>
         </div>
     </footer>
+    <script>
+    // Обновление счетчика непрочитанных
+    function updateMessagesCounter() {
+        fetch('/chat/api/chats/')
+            .then(response => response.json())
+            .then(data => {
+                const total = data.chats.reduce((sum, chat) => sum + chat.unread_count, 0);
+                const counter = document.getElementById('messages-counter');
+                if (counter) counter.textContent = total > 0 ? `(${total})` : '';
+            });
+    }
+    setInterval(updateMessagesCounter, 10000);
+    updateMessagesCounter();
+</script>
 </body>
 </html>

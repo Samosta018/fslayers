@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %} 
+
+{% block title %}Freelance Assistant{% endblock %}
+
+{% block content %}
+<section class="ai-chat-section">
+    <div class="ai-chat-container">
+        <h1 class="ai-chat-section__title">Freelance Assistant</h1>
+        <div class="ai-chat-messages" id="ai-chat-messages">
+            <div class="ai-message ai-message-assistant">
+                <div>Здравствуйте! Я ваш ассистент по фриланс-вопросам. Чем могу помочь?</div>
+                <div class="ai-message-timestamp">Только что</div>
+            </div>
+        </div>
+        <div class="ai-chat-input-container">
+            <div class="ai-chat-input-wrapper">
+                <textarea class="ai-chat-input" id="ai-chat-input" placeholder="Напишите ваш вопрос о фрилансе, заказах или ТЗ..." rows="1"></textarea>
+                <button class="ai-chat-submit" id="ai-chat-submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <p class="ai-disclaimer">Ассистент отвечает только на вопросы, связанные с фрилансом: обсуждение заказов, помощь с ТЗ и другие рабочие темы.</p>
+</section>
+<script src="{% static 'js/chat.js' %}"></script>
+{% endblock %}

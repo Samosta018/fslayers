@@ -36,8 +36,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'main',
-    'chatai',
     'orders',
+    'assistant',
+    'chat.apps.ChatConfig',
     'accounts.apps.AccountsConfig',
     'profiles.apps.ProfilesConfig',
     'django.contrib.admin',

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Портфолио{% endblock %}
+
+{% block content %}
+<section class="portfolio">
+    <div class="portfolio__container main__container">
+        <h1 class="portfolio__title">Мое портфолио</h1>
+        
+        <form method="post" enctype="multipart/form-data" class="portfolio__form form">
+            {% csrf_token %}
+            <div class="form__group">
+                <label for="{{ form.image.id_for_label }}" class="form__label">Изображение</label>
+                <div class="form__file-wrapper">
+                    {{ form.image }}
+                    <span class="form__file-button btn btn--secondary">Выбрать файл</span>
+                    <span class="form__file-name">Файл не выбран</span>
+                </div>
+            </div>
+            <div class="form__group">
+                <label for="{{ form.title.id_for_label }}" class="form__label">Название</label>
+                {{ form.title }}
+            </div>
+            <div class="form__group">
+                <label for="{{ form.description.id_for_label }}" class="form__label">Описание</label>
+                {{ form.description }}
+            </div>
+            <button type="submit" class="form__submit btn btn--primary">Добавить работу</button>
+        </form>
+        
+        <div class="portfolio__gallery">
+            {% for image in portfolio_images %}
+            <div class="portfolio__item card">
+                <div class="portfolio__image-wrapper">
+                    <img src="{{ image.image.url }}" alt="{{ image.title }}" class="portfolio__image">
+                </div>
+                <div class="portfolio__content">
+                    <h3 class="portfolio__item-title">{{ image.title }}</h3>
+                    <p class="portfolio__item-description">{{ image.description|truncatechars:100 }}</p>
+                    <div class="portfolio__actions">
+                        <a href="{% url 'profiles:delete_portfolio_image' image.id %}" 
+                           class="btn btn--danger btn--sm"
+                           onclick="return confirm('Удалить это изображение из портфолио?')">
+                            Удалить
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="portfolio__empty empty-state">
+                <svg class="empty-state__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                <h3 class="empty-state__title">Портфолио пусто</h3>
+                <p class="empty-state__text">Добавьте свои работы, чтобы заполнить портфолио</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Обновление имени файла при выборе
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    fileInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : 'Файл не выбран';
+            const fileDisplay = this.parentNode.querySelector('.form__file-name');
+            fileDisplay.textContent = fileName;
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Чат{% endblock %}
+
+{% block content %}
+<div class="chat-container">
+    <div class="chat-list">
+        <div class="chat-list-header">
+            <h2>Сообщения</h2>
+        </div>
+        <div class="chat-search">
+            <input type="text" class="search-input" placeholder="Поиск чатов...">
+        </div>
+        <div class="chats-container" id="chats-container"></div>
+    </div>
+    
+    <div class="chat-window active">
+        <div class="chat-header">
+            <button class="back-to-chats" id="back-to-chats">←</button>
+            <img src="{{ other_user.profile.avatar_url }}" alt="Аватар" class="chat-user-avatar">
+            <div class="chat-user-info">
+                <h3 class="chat-user-name">{{ other_user.name }}</h3>
+                <div class="chat-user-status">
+                    <span class="status-indicator"></span>
+                    <span>в сети</span>
+                </div>
+            </div>
+            <div class="chat-actions">
+                
+            </div>
+        </div>
+        
+        <div class="chat-messages" id="messages-container">
+            {% for message in messages %}
+            <div class="message {% if message.sender == request.user %}my-message{% else %}other-message{% endif %}" 
+                 data-id="{{ message.id }}">
+                <div class="message-content">
+                    <p>{{ message.text }}</p>
+                    <span class="message-time">{{ message.created_at|time:"H:i" }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="new-messages-indicator">Новые сообщения ↓</div>
+        
+        <form class="message-form" id="message-form" method="post" action="{% url 'chat:chat_detail' chat_id=chat.id %}">
+            {% csrf_token %}
+            <div class="message-input-container">
+                <textarea class="message-input" name="text" placeholder="Напишите сообщение..." rows="1"></textarea>
+            </div>
+            <button type="submit" class="send-button">
+                <svg class="send-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M22 2L11 13M22 2L15 22L10 15L2 9L22 2Z"/>
+                </svg>
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const CHAT_ID = {{ chat.id }};
+    const CURRENT_USER_ID = {{ request.user.id }};
+    const OTHER_USER_NAME = "{{ other_user.name }}";
+    const OTHER_USER_AVATAR = "{{ other_user.avatar_url|default:'/static/images/default-avatar.jpg' }}";
+</script>
+<script src="{% static 'js/chat_detail.js' %}"></script>
+<script src="{% static 'js/chat_list.js' %}"></script>
+{% endblock %}

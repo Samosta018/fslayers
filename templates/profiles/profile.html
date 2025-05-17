@@ -45,7 +45,7 @@
                                 <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"/>
                                 <path d="M22 6L12 13L2 6"/>
                             </svg>
-                            <a href="mailto:{{ profile_user.email }}">{{ profile_user.email }}</a>
+                            <a class="red-link" href="mailto:{{ profile_user.email }}">{{ profile_user.email }}</a>
                         </div>
                     {% endif %}
                     {% if profile.phone %}
@@ -53,7 +53,7 @@
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path d="M22 16.92V19C22 19.5304 21.7893 20.0391 21.4142 20.4142C21.0391 20.7893 20.5304 21 20 21H4C3.46957 21 2.96086 20.7893 2.58579 20.4142C2.21071 20.0391 2 19.5304 2 19V16.92M16 8L12 12M12 12L8 8M12 12V21M22 16.92L17.65 12.571C16.8347 11.7564 15.7469 11.283 14.618 11.242L12.079 11.12C11.4441 11.0945 10.8221 10.9112 10.2725 10.5867C9.72294 10.2621 9.26309 9.80691 8.937 9.263L8 8L12 12L16 8L22 16.92Z"/>
                             </svg>
-                            <a href="tel:{{ profile.phone }}">{{ profile.phone }}</a>
+                            <a class="red-link" href="tel:{{ profile.phone }}">{{ profile.phone }}</a>
                         </div>
                     {% endif %}
                     <div class="profile__meta-item">
@@ -81,6 +81,31 @@
                         {{ profile.skills|linebreaks }}
                     </div>
                 </div>
+            {% endif %}
+            {% if portfolio_images %}
+            <div class="profile__section card">
+                <h2 class="profile__section-title">Портфолио</h2>
+                <div class="portfolio-gallery">
+                    <div class="gallery-grid">
+                        {% for image in portfolio_images %}
+                        <div class="gallery-item">
+                            <a href="{{ image.image.url }}" 
+                            data-fancybox="portfolio-gallery" 
+                            data-caption="<h4>{{ image.title }}</h4><p>{{ image.description }}</p>">
+                                <img src="{{ image.image.url }}" 
+                                    alt="{{ image.title }}"
+                                    class="gallery-thumbnail"
+                                    loading="lazy">
+                            </a>
+                            <div class="gallery-item-info">
+                                <h4>{{ image.title }}</h4>
+                                <p>{{ image.description|truncatechars:50 }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
             {% endif %}
             {% if is_owner and not profile.bio and not profile.skills %}
                 <div class="profile__empty card">
@@ -111,6 +136,106 @@
                 </div>
             {% endif %}
         </div>
+        <div class="profile__section card">            
+            {% if not is_owner and request.user.is_authenticated %}
+            <div class="profile__reviews-actions">
+                <a href="{% url 'profiles:add_review' profile_user.id %}" 
+                class="red-link">
+                    {% if has_review %}Редактировать отзыв{% else %}Оставить отзыв{% endif %}
+                </a>
+            </div>
+            {% endif %}
+            
+            <div class="reviews-container">
+                {% if reviews %}
+                <div class="reviews-scrollable">
+                    {% for review in reviews %}
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-author">
+                                <div class="review-avatar">
+                                    {% if review.author.profile.avatar %}
+                                        <img src="{{ review.author.profile.avatar.url }}" 
+                                            alt="{{ review.author.name }}"
+                                            width="40"
+                                            height="40">
+                                    {% else %}
+                                        <div class="default-avatar">
+                                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"/>
+                                                <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"/>
+                                            </svg>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="review-author-info">
+                                    <h4>{{ review.author.name }}</h4>
+                                    <div class="review-rating">
+                                        {% for i in "12345" %}
+                                            {% if forloop.counter <= review.rating %}
+                                                <span class="star filled">★</span>
+                                            {% else %}
+                                                <span class="star">☆</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">
+                                {{ review.created_at|date:"d.m.Y" }}
+                            </div>
+                        </div>
+                        <div class="review-content">
+                            {{ review.text|linebreaks }}
+                        </div>
+                        {% if request.user == review.author %}
+                        <div class="review-actions">
+                            <a href="{% url 'profiles:delete_review' review.id %}" 
+                            class="red-link"
+                            onclick="return confirm('Вы уверены, что хотите удалить этот отзыв?')">
+                                Удалить
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-reviews">
+                    <p>Пока нет отзывов.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    Fancybox.bind("[data-fancybox]", {
+        // Options
+        Thumbs: {
+            type: "classic",
+        },
+        Toolbar: {
+            display: {
+                left: ["infobar"],
+                middle: [
+                    "zoomIn",
+                    "zoomOut",
+                    "toggle1to1",
+                    "rotateCCW",
+                    "rotateCW",
+                    "flipX",
+                    "flipY",
+                ],
+                right: ["slideshow", "thumbs", "close"],
+            },
+        },
+        Images: {
+            zoom: true,
+        },
+    });
+});
+</script>
 {% endblock %}
